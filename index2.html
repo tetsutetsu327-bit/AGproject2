@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AG Artist Verification | アーティスト認証制度公式サイト</title>
+    <style>
+        /* デザイン設定 /
+        :root {
+            --primary: #2c3e50;
+            --accent: #e67e22; / 申請ボタン用の目立つオレンジ */
+            --success: #27ae60;
+            --bg: #f4f7f9;
+            --white: #ffffff;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            background-color: var(--bg);
+        }
+        header {
+            background: var(--primary);color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; }
+        .tagline { font-size: 0.9rem; opacity: 0.8; margin-top: 10px; }
+
+        .container {
+            max-width: 800px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+        }
+        section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+            border-bottom: 3px solid
+var(--primary);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding-bottom: 5px;
+        }
+
+        /* 申請ボタン /
+        .btn-apply {
+            display: block;
+            background: var(--accent);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+            margin: 1rem 0;
+            transition: transform 0.2s;
+        }
+        .btn-apply:active { transform: scale(0.98); }
+
+        / 検索窓 /
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        / 名簿テーブル */
+        .table-wrapper { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        th { background: #f9f9f9; color: #666; }
+        .status-verified { color: var(--success); font-weight: bold; }
+        .status-admin { color: #2980b9; font-weight: bold; }
+
+        footer { text-align: center;
+padding: 3rem 1rem; font-size: 0.8rem; color: #999; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AG Artist Verification</h1>
+    <p class="tagline">— アナログ・手描きアーティストの信頼を証明する —</p>
+</header>
+
+<div class="container">
+    <section>
+        <h2>AG制度とは</h2>
+        <p>作品が生成AIを使用せず、アーティスト本人の手によって描かれたものであることを認証する制度です。動画審査を通過したアーティストには固有の「AG ID」を発行します。</p>
+    </section>
+
+    <section style="text-align: center;">
+        <h2>認証申請を行う</h2>
+        <p>制作動画（タイムラプス等）をご用意の上、以下のフォームより申請してください。</p>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe90t2uGelha9gi_xeufv4aUJS5icnPBx7xD8gUEUdWBbYIxw/viewform?usp=header" target="_blank" class="btn-apply">
+            認証申請フォームを開く
+        </a>
+
+        <p style="font-size: 0.8rem; color: #7f8c8d;">※審査には数日〜1週間ほどお時間をいただきます。</p>
+    </section>
+
+    <section>
+        <h2>認証アーティスト検索</h2>
+        <p>AG ID または Twitter IDを入力して、認証情報を確認できます。</p>
+
+        <input type="text" id="searchInput" onkeyup="searchArtist()" placeholder="例: AG010 または @username" class="search-box">
+
+        <div class="table-wrapper">
+            <table id="artistTable">
+                <thead>
+                    <tr>
+                        <th>AG ID</th>
+                        <th>Twitter ID</th>
+                        <th>ステータス</th>
+                    </tr>
+                </thead>
+                <tbody>
+    <tr>
+        <td>AG000</td>
+        <td>@bHW8E64HV083299</td>
+        <td class="status-admin">★ 管理責任者</td>
+    </tr>
+
+    <tr style="background-color: #fff9e6;"> <td>募集中</td>
+        <td>募集中</td>
+        <td><span style="color: #d4af37; font-weight: bold;">✨ 新規認証 (New!)</span></td>
+    </tr>
+
+    <tr style="opacity: 0.6;">
+        <td>募集中</td>
+        <td>(審査中...)</td>
+        <td><span style="color: #7f8c8d;">⏳ 申請確認中</span></td>
+    </tr>
+
+    <tr>
+        <td>AG010</td>
+        <td>@sample_artist</td>
+        <td class="status-verified">● 認証済み</td>
+    </tr>
+</tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2>ID体系について</h2>
+        <ul style="font-size: 0.9rem; color: #555;">
+            <li><strong>AG000：</strong> サイト公開者・管理責任者</li>
+            <li><strong>AG001〜009：</strong> 初期運営メンバー</li>
+            <li><strong>AG010〜999：</strong> 一般認証アーティスト</li>
+            <li><strong>AG1000〜：</strong> 拡張用・協力団体</li>
+        </ul>
+    </section>
+</div>
+
+<footer>
+    &copy; 2026 AG Verification Project. All Rights Reserved.
+</footer>
+
+<script>
+/* 検索機能の処理 */
+function searchArtist() {
+const input = document.getElementById("searchInput");
+  const filter = input.value.toUpperCase();
+  const table = document.getElementById("artistTable");
+  const tr = table.getElementsByTagName("tr");
+
+  for (let i = 1; i < tr.length; i++) {
+    const tds = tr[i].getElementsByTagName("td");
+    let found = false;
+    for (let j = 0; j < tds.length; j++) {
+      if (tds[j]) {
+        const txtValue = tds[j].textContent || tds[j].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          found = true;
+          break;
+        }
+      }
+    }
+    tr[i].style.display = found ? "" : "none";
+  }
+}
+</script>
+<div id="admin-popup" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 380px;
+    background: #ffffff;
+    border-left: 5px solid #2c3e50;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 30px;
+    z-index: 1000;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: slideUp 0.5s ease-out;
+">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <strong style="color: #2c3e50;">📢 運営メンバー募集中</strong>
+        <button onclick="closePopup()" style="border: none; background: none; cursor: pointer; color: #999; font-size: 1.2rem; line-height: 1;">&times;</button>
+    </div>
+    <p style="margin: 0; color: #666;">
+        AG制度の運営を手伝ってくれる協力者を募集しています（AG001〜009枠）。
+    </p>
+    <a href="https://twitter.com/@bHW8E64HV083299" target="_blank" style="
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        text-align: right;
+    ">詳細をDMで聞く →</a>
+</div>
+
+<style>
+/* 下からふわっと出るアニメーション */
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+</style>
+
+<script>
+/* 閉じるボタンの動作 */
+function closePopup() {
+    document.getElementById('admin-popup').style.display = 'none';
+}
+</script>
+</body>
+</html>
+
